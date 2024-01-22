@@ -22,8 +22,8 @@ scene.add(mesh)
  * Sizes
  */
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
 
 /**
@@ -44,7 +44,45 @@ controls.enableDamping = true
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
+
+window.addEventListener('resize', () => {
+    console.log('resize')
+    //update sizes for when user resize the window
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+
+    //update camera
+    camera.aspect = sizes.width / sizes.height
+    camera.updateProjectionMatrix()
+
+    //update renderer
+    renderer.setSize(sizes.width, sizes.height)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
+})
+
+// add double-click listner to resize in full screen. Can be useful for a game for example
+window.addEventListener('dblclick', () => {
+    console.log('double click');
+    const fullscreenElement = document.fullscreenElement;
+
+    if (!fullscreenElement) {
+        if (canvas.requestFullscreen) {
+            console.log('Go to FullScreen');
+            canvas.requestFullscreen();
+        }
+    }
+    else {
+        if (document.exitFullscreen) {
+            console.log('Quit FullScreen');
+            document.exitFullscreen();
+        }
+    }
+});
+
+
 renderer.setSize(sizes.width, sizes.height)
+// 2 or less is ok
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
 
 /**
  * Animate

@@ -1,0 +1,21 @@
+html,
+body
+{   /*prevent the scroll to make the down of the page to appears more*/
+    overflow: hidden;
+}
+
+/*One each element of the HTML we delete the margin and the padding for more immersion*/
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+/*On the canvas.webgl element of the HTML we fixe the position and delete the scrolling bar on the top and left*/
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
